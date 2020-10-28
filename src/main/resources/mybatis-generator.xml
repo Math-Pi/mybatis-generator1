@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 配置生成器 -->
+<generatorConfiguration>
+
+    <!-- mysql-connector-java-5.1.46.jar的绝对路径 -->
+    <classPathEntry location="D:/Program Files/apache-maven-3.6.3/respository/mysql/mysql-connector-java/5.1.46/mysql-connector-java-5.1.46.jar" />
+
+    <!-- 一个数据库一个context -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+                一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 -->
+        <property name="autoDelimitKeywords" value="true" />
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="utf-8" />
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 注释 -->
+        <commentGenerator >
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+            <property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
+        </commentGenerator>
+        <!-- 配置数据源 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/first"
+                        userId="root"
+                        password="123456">
+            <!-- 这里面可以设置property属性，每一个property属性都设置到配置的Driver上 -->
+        </jdbcConnection>
+        <!-- 类型转换 -->
+        <javaTypeResolver >
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 配置生成的javabean所存放的路径和包（使用绝对路径） -->
+        <javaModelGenerator targetPackage="com.cjm.generator.bean" targetProject="D:\Maven\mybatis-generator1\src\main\java">
+            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 配置生成的**Mapper.xml文件所存放的路径和包（使用绝对路径） -->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="D:\Maven\mybatis-generator1\src\main\resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 配置生成的**Mapper.java接口文件所存放的路径和包（使用绝对路径） -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cjm.generator.dao" targetProject="D:\Maven\mybatis-generator1\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 指定我们要操作的表明和生成的javabean类名 -->
+        <table tableName="person" domainObjectName="Person" >
+        </table>
+
+    </context>
+</generatorConfiguration>
